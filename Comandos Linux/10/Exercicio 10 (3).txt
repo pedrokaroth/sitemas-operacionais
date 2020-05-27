@@ -1,0 +1,1 @@
+A funcao mostra a data de hoje
