@@ -55,6 +55,34 @@ while menu != 5:
 
 		menu = int(input())
 		alocated = False
+
+		if menu  == 2:
+			size = int(input("Tamanho do programa: "))
+			bigger = 0
+			free   = 0
+			start  = 0
+
+			for x in range(len(memory)):
+
+				if memory[x] == " ":
+					free += 1
+				else:
+
+					if free > bigger:
+
+						bigger = free
+						start = x - bigger
+						end = (x - bigger) + size
+
+						if bigger >= size: 
+							alocated = True
+
+					free = 0
+			
+			if alocated:
+				prog += 1
+				for i in range(start, end):
+					memory[i] = prog
 		
 		if menu == 3: 		
 			size = int(input("Tamanho do programa: "))
@@ -66,7 +94,7 @@ while menu != 5:
 				if free == size:
 					
 					prog += 1
-					for i in range(x-size, x):
+					for i in range( x-size, x):
 						memory[i] = prog
 					alocated = True
 					break
@@ -76,7 +104,7 @@ while menu != 5:
 
 				else:
 					free = 0
-					
+
 			if not alocated:
 				print("Memória insuficiente =(")
 
