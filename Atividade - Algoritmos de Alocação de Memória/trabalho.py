@@ -1,15 +1,11 @@
 from random import randint
 from os import system
-menuOption = 0
-
-# Opa professor vou colocar alguns comentarios para explicar a logica mas gostaria que voce avaliasse o codigo pela legibilidade, abrc!
 
 def setMemory():
 	memory = [' '] * 100
 
 	for x in range(len(memory)):
 
-		# 50% de chance de cair X ou vazio
 		if(randint(1,5) == 1):
 			memory[x] = 'X'
 		else:
@@ -19,12 +15,12 @@ def setMemory():
 
 def showMemory(memory):
 	print('-' * 14 + 'MEMORIA ATUAL' + '-' * 13)
-
-	# Loop que aumenta de 20 em 20 para mostrar a memoria na tela
 	for x in range(0,5):
+
 		if x == 0:
 			startPrint = 0
 			endPrint = 20
+
 		else:
 			startPrint = endPrint
 			endPrint += 20
@@ -56,6 +52,46 @@ while menu != 5:
 		menu = int(input())
 		alocated = False
 
+		if menu == 1:
+			size = int(input("Tamanho do programa: "))
+			free = 0
+			locateIndex = []
+			locateSpace = []
+
+			for x in range(len(memory)):
+
+				if memory[x] == " ":
+					free += 1
+
+				else:
+
+					if free >= size:
+						locateIndex.append(x - free)
+						locateSpace.append(free)
+						alocated = True
+					
+					free = 0
+
+			if alocated:
+
+				prog += 1
+
+				for x in range(len(locateSpace)):
+
+					if x == 0:
+						best  = locateSpace[x]
+						index = locateIndex[x]
+
+					elif locateSpace[x] < best:
+						best  = locateSpace[x]
+						index = locateIndex[x]
+
+				for x in range(index, index + best):
+					memory[x] = prog
+
+			else:
+				print("Memória insuficiente =(")			
+
 		if menu  == 2:
 			size = int(input("Tamanho do programa: "))
 			bigger = 0
@@ -66,23 +102,29 @@ while menu != 5:
 
 				if memory[x] == " ":
 					free += 1
+
 				else:
 
 					if free > bigger:
 
 						bigger = free
 						start = x - bigger
-						end = (x - bigger) + size
+						end = start + size
 
 						if bigger >= size: 
+
 							alocated = True
 
 					free = 0
 			
 			if alocated:
+
 				prog += 1
 				for i in range(start, end):
 					memory[i] = prog
+
+			else:
+				print("Memória insuficiente =(")
 		
 		if menu == 3: 		
 			size = int(input("Tamanho do programa: "))
@@ -116,5 +158,3 @@ while menu != 5:
 					memory[x] = " "
 
 		showMemory(memory)
-
-		
